@@ -3,6 +3,7 @@ package pl.kwi.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,18 +19,16 @@ import pl.kwi.entities.UserEntity;
 @Stateless
 public class UserService {
 	
-	@PersistenceContext(unitName="pu_users")
-	private EntityManager emUsers;
-	@PersistenceContext(unitName="pu_names")
-	private EntityManager emNames;
-	@PersistenceContext(unitName="pu_surnames")
-	private EntityManager emSurnames;
+	
+	@EJB
+	private UserDao userDao;
+	@EJB
+	private NameDao nameDao;
+	@EJB
+	private SurnameDao surnameDao;
+	
 		
 	public void createUser(UserEntity user) throws Exception{
-		
-		UserDao userDao = new UserDao(emUsers);
-		NameDao nameDao = new NameDao(emNames);
-		SurnameDao surnameDao = new SurnameDao(emSurnames);
 		
 		NameEntity nameEntity = user.getNameEntity();			
 		nameDao.create(nameEntity);
@@ -48,10 +47,6 @@ public class UserService {
 		
 		UserEntity user = null;
 		
-		UserDao userDao = new UserDao(emUsers);
-		NameDao nameDao = new NameDao(emNames);
-		SurnameDao surnameDao = new SurnameDao(emSurnames);
-		
 		user = userDao.read(id);
 		
 		NameEntity nameEntity = nameDao.read(user.getNameEntity().getId());
@@ -65,10 +60,6 @@ public class UserService {
 	}
 	
 	public void updateUser(UserEntity user) throws Exception{
-		
-		UserDao userDao = new UserDao(emUsers);
-		NameDao nameDao = new NameDao(emNames);
-		SurnameDao surnameDao = new SurnameDao(emSurnames);
 		
 		String name = user.getNameEntity().getName();
 		String surname = user.getSurnameEntity().getSurname();
@@ -85,10 +76,6 @@ public class UserService {
 	
 	public void deleteUser(Long id) throws Exception{
 		
-		UserDao userDao = new UserDao(emUsers);
-		NameDao nameDao = new NameDao(emNames);
-		SurnameDao surnameDao = new SurnameDao(emSurnames);
-		
 		UserEntity user = userDao.read(id);
 		
 		nameDao.delete(user.getNameEntity().getId(), NameEntity.class);
@@ -102,9 +89,6 @@ public class UserService {
 		
 			
 		List<UserEntity> users = new ArrayList<UserEntity>();
-		UserDao userDao = new UserDao(emUsers);
-		NameDao nameDao = new NameDao(emNames);
-		SurnameDao surnameDao = new SurnameDao(emSurnames);
 		
 		users = (List<UserEntity>)userDao.readAll();
 		

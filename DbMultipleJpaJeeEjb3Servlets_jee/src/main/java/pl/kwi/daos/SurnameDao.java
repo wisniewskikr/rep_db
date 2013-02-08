@@ -1,11 +1,13 @@
 package pl.kwi.daos;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 
-import pl.kwi.db.jpa.AbstractDao;
+import pl.kwi.db.jpa.AbstractDaoSurnames;
 import pl.kwi.entities.SurnameEntity;
 
-public class SurnameDao extends AbstractDao<SurnameEntity> {
+@Stateless
+public class SurnameDao extends AbstractDaoSurnames<SurnameEntity> {
 	
 	public SurnameDao() {
 		setClazz(SurnameEntity.class);

@@ -3,17 +3,19 @@ package pl.kwi.db.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-public abstract class AbstractDao<T extends AbstractEntity> {
+public abstract class AbstractDaoNames<T extends AbstractEntity> {
 	
 	
+	@PersistenceContext(unitName="pu_names")
 	private EntityManager em;
 	private Class<T> clazz;
 		
 		
-	public AbstractDao(){}
+	public AbstractDaoNames(){}
 	
-	public AbstractDao(EntityManager em) {
+	public AbstractDaoNames(EntityManager em) {
 		this.em = em;
 	}
 

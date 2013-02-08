@@ -5,17 +5,17 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public abstract class AbstractDao<T extends AbstractEntity> {
+public abstract class AbstractDaoUsers<T extends AbstractEntity> {
 	
 	
-	@PersistenceContext
+	@PersistenceContext(unitName="pu_users")
 	private EntityManager em;
 	private Class<T> clazz;
 		
 		
-	public AbstractDao(){}
+	public AbstractDaoUsers(){}
 	
-	public AbstractDao(EntityManager em) {
+	public AbstractDaoUsers(EntityManager em) {
 		this.em = em;
 	}
 
